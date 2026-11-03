@@ -94,7 +94,7 @@ module.exports = {
 
         let body = `🎬 ᴘɪɴᴛʀᴇꜱᴛ ᴠɪᴅᴇᴏ: ${input}\n\n`;
         videos.forEach((v, i) => { body += `${i + 1}. ${short(v.title)}\n`; });
-        body += `\n↪ ʀᴇᴘʟʏ 1-${videos.length} ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ (ᴡɪᴛʜ ꜱᴏᴜɴᴅ)\nᴀᴜᴛʜᴏʀ: ꜱɪꜰᴀᴛ`;
+        body += `\n↪ ʀᴇᴘʟʏ 1-${videos.length} ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ`;
 
         return api.sendMessage(
           { body, attachment: files.map(f => fs.createReadStream(f)) },
@@ -121,7 +121,7 @@ module.exports = {
 
       for (let i = 0; i < imgs.length; i += 10) {
         await new Promise(r => api.sendMessage({
-          body: i === 0 ? `🖼 ᴘɪɴᴛʀᴇꜱᴛ: ${input} (${imgs.length})\nᴀᴜᴛʜᴏʀ: ꜱɪꜰᴀᴛ` : "",
+          body: i === 0 ? `🖼 ᴘɪɴᴛʀᴇꜱᴛ: ${input} (${imgs.length})` : "",
           attachment: imgs.slice(i, i + 10).map(f => fs.createReadStream(f))
         }, threadID, () => r(), i === 0 ? messageID : undefined));
       }
@@ -152,7 +152,7 @@ module.exports = {
         : await toFile(`${API}/api/video/download`, "mp4", 180000, { url: v.hls, key: KEY });
 
       api.sendMessage({
-        body: `🎬 ᴘɪɴᴛʀᴇꜱᴛ ᴠɪᴅᴇᴏ\nᴛɪᴛʟᴇ: ${short(v.title, 100)}\nᴀᴜᴛʜᴏʀ: ꜱɪꜰᴀᴛ`,
+        body: `🎬 ᴘɪɴᴛʀᴇꜱᴛ ᴠɪᴅᴇᴏ\nᴛɪᴛʟᴇ: ${short(v.title, 100)}`,
         attachment: fs.createReadStream(file)
       }, threadID, (err) => {
         clean([file]);
